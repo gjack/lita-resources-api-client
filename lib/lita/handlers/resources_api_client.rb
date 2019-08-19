@@ -1,6 +1,6 @@
 module Lita
   module Handlers
-    class ResourcesApiClient < Handler
+    class ResourcesApiClient < PcoApiHandler
       attr_reader :api
 
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
