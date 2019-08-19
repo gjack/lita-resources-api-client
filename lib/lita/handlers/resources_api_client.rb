@@ -14,7 +14,7 @@ module Lita
       end
 
       def fetch_approval_groups
-        api.resources.v2.resource_approval_groups.get
+        @api.resources.v2.resource_approval_groups.get
       end
 
       def formatted_approval_groups
