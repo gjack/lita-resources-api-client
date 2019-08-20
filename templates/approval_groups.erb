@@ -4,13 +4,13 @@
     "color": "#3AA3E3",
     "attachment_type": "default",
     "callback_id": "approval_group_selection",
-    "actions": [
+    "actions": <%= Array([
       {
         "name": "groups_list",
         "text": "Pick an approval group...",
         "type": "select",
-        "options": <%= @groups['data'].map { |group| { "text": group['attributes']['name'], "value": group['attributes']['id'] } }.to_json %>
+        "options": @groups['data'].map { |group| { "text": group['attributes']['name'], "value": group['id'] } }.to_json
       }
-    ]
-  },
+    ]).to_json %>
+  }
 ]
