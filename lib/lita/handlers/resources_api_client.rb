@@ -22,7 +22,10 @@ module Lita
       end
 
       def formatted_approval_groups
-        render_template('approval_groups', groups: fetch_approval_groups)
+        {
+          "response_type": "in_channel",
+          "blocks": render_template('approval_groups', groups: fetch_approval_groups)
+        }
       end
 
 
