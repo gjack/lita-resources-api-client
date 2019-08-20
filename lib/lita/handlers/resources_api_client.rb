@@ -7,7 +7,8 @@ module Lita
       config :auth_token, default: ENV['AUTH_TOKEN']
       config :auth_secret, default: ENV['AUTH_SECRET']
 
-      http.post '/actions', :respond_with_message
+      http.post '/actions', :respond_with_message, { :ssl => {
+        :ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'} }
 
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
 
