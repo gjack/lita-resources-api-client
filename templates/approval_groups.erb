@@ -1,6 +1,17 @@
 [
   {
-    "text": "This is a list of Resource Approval Groups for your Organization:",
+    "text": "Choose from this list of Resource Approval Groups for your Organization:",
+    "color": "#3AA3E3",
+    "attachment_type": "default",
+    "callback_id": "approval_group_selection",
+    "actions": [
+      {
+        "name": "groups_list",
+        "text": "Pick an approval group...",
+        "type": "select",
+        "options": <%= @groups['data'].map { |group| { "text": group['attributes']['name'], "value": group['attributes']['id'] } }.to_json %>
+      }
+    ]
     "fields": <%= @groups['data'].map { |group| { "title": "", "value": group['attributes']['name'], "short": true } }.to_json %>
-  }
+  },
 ]
