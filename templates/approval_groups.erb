@@ -1,10 +1,6 @@
 [
   {
-    "type": "section",
-    "text": {
-      "type": "mrkdwn",
-      "text": "This is a list of Resource Approval Groups for your Organization:"
-    },
-    "fields": <%= @groups['data'].map { |group| { "type": "mrkdwn", "text": group['attributes']['name'] } } %>
+    "text": "This is a list of Resource Approval Groups for your Organization:",
+    "fields": <%= @groups['data'].map { |group| { title: "", "value": group['attributes']['name'], "short": true } } %>
   }
 ]
