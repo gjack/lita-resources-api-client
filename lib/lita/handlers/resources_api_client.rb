@@ -14,11 +14,11 @@ module Lita
       end
 
       def api
-        @api ||= PCO::API.new(basic_auth_token: config.auth_token, basic_auth_secret: config.auth_secret)
+        @api = PCO::API.new(basic_auth_token: config.auth_token, basic_auth_secret: config.auth_secret)
       end
 
       def fetch_approval_groups
-        @api.resources.v2.resource_approval_groups.get
+        api.resources.v2.resource_approval_groups.get
       end
 
       def formatted_approval_groups
