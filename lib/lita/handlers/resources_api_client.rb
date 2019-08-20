@@ -10,7 +10,9 @@ module Lita
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
 
       def respond_with_approval_groups(response)
-        response.reply([MultiJson.dump(formatted_approval_groups)])
+        # response.reply([MultiJson.dump(formatted_approval_groups)])
+        target = Source.new(room: Lita::Room.find_by_name('general'))
+        robot.chat_service.send_attachment(target, MultiJson.dump(formatted_approval_groups))
       end
 
       def api
@@ -23,11 +25,11 @@ module Lita
 
       def formatted_approval_groups
 	        {
-		       "type": "section",
-		       "text": {
-			     "type": "mrkdwn",
-			     "text": "A message *with some bold text* and _some italicized text_."
-		        }
+            attachments: [
+              {
+  			     "text": "A message *with some bold text* and _some italicized text_."
+  		        }
+            ]
 	        }
       end
 
