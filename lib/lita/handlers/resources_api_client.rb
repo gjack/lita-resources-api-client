@@ -10,7 +10,7 @@ module Lita
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
 
       def respond_with_approval_groups(response)
-        response.reply(formatted_approval_groups)
+        response.reply(MultiJson.dump(formatted_approval_groups))
       end
 
       def api
