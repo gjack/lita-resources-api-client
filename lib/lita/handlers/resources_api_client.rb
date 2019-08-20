@@ -10,7 +10,7 @@ module Lita
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
 
       def respond_with_approval_groups(response)
-        robot.chat_service.send_attachment(response.message.source.room_object, MultiJson.load(formatted_approval_groups))
+        robot.chat_service.send_attachment(response.message.source.room_object, formatted_approval_groups)
       end
 
       def api
@@ -22,7 +22,23 @@ module Lita
       end
 
       def formatted_approval_groups
-	      render_template('approval_groups', { groups: fetch_approval_groups })
+        groups = fetch_approval_groups['data']
+        [
+          {
+            "text": "Choose from this list of Resource Approval Groups for your Organization:",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "callback_id": "approval_group_selection",
+            "actions": [
+              {
+                "name": "groups_list",
+                "text": "Pick an approval group...",
+                "type": "select",
+                "options": groups.map { |group| { "text": group['attributes']['name'], "value": group['id'] } }
+              }
+            ]
+          }
+        ]
       end
 
 
