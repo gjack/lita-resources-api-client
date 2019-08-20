@@ -12,6 +12,5 @@
         "options": <%= @groups['data'].map { |group| { "text": group['attributes']['name'], "value": group['attributes']['id'] } }.to_json %>
       }
     ]
-    "fields": <%= @groups['data'].map { |group| { "title": "", "value": group['attributes']['name'], "short": true } }.to_json %>
   },
 ]
