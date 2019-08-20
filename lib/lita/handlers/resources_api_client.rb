@@ -22,10 +22,10 @@ module Lita
       end
 
       def formatted_approval_groups
-        {
+        [{
           "response_type": "in_channel",
           "text": "Hello"
-        }
+        }]
       end
 
 
