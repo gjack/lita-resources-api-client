@@ -10,7 +10,7 @@ module Lita
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
 
       def respond_with_approval_groups(response)
-        response.reply(formatted_approval_groups)
+        response.reply(MultiJson.dump(formatted_approval_groups))
       end
 
       def api
@@ -24,7 +24,7 @@ module Lita
       def formatted_approval_groups
         {
           "response_type": "in_channel",
-          "blocks": render_template('approval_groups', groups: fetch_approval_groups)
+          "text": "Hello"
         }
       end
 
