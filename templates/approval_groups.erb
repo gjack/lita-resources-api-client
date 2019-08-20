@@ -1,6 +1,6 @@
 [
   {
     "text": "This is a list of Resource Approval Groups for your Organization:",
-    "fields": <%= @groups['data'].map { |group| { title: "", "value": group['attributes']['name'], "short": true } } %>
+    "fields": <%= @groups['data'].map { |group| { "title": "", "value": group['attributes']['name'], "short": true } }.to_json %>
   }
 ]
