@@ -11,7 +11,7 @@ module Lita
 
       def respond_with_approval_groups(response)
         # response.reply([MultiJson.dump(formatted_approval_groups)])
-        robot.chat_service.send_attachment(response.message.source.room_object, MultiJson.dump(formatted_approval_groups))
+        robot.chat_service.send_attachment(response.message.source.room_object, formatted_approval_groups)
       end
 
       def api
@@ -23,13 +23,11 @@ module Lita
       end
 
       def formatted_approval_groups
-	        {
-            attachments: [
+	         [
               {
   			     "text": "A message *with some bold text* and _some italicized text_."
   		        }
             ]
-	        }
       end
 
 
