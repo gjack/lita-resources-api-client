@@ -10,7 +10,7 @@ module Lita
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
 
       def respond_with_approval_groups(response)
-        robot.chat_service.send_attachment(response.message.source.room_object, formatted_approval_groups)
+        robot.chat_service.send_attachment(response.message.source.room_object, MultiJson.load(formatted_approval_groups))
       end
 
       def api
