@@ -14,7 +14,7 @@ module Lita
       http.post '/actions', :respond_with_action
 
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true, help: {'list approval groups' => 'listing'})
-
+      
       def respond_with_approval_groups(response)
         robot.chat_service.send_attachment(response.message.source.room_object, formatted_approval_groups)
       end
@@ -22,8 +22,8 @@ module Lita
       def respond_with_action(request, response)
         payload = request_payload(request)
         if verify_request(payload.token)
-          http.post payload.response_url, MultiJson.dump({"text": "Your request has been received...", "response_type": "in_channel"})
           robot.trigger(payload.callback_id.to_sym, payload.attributes_hash)
+          http.post payload.response_url, MultiJson.dump({"text": "Your request has been received...", "response_type": "in_channel"})
         end
       end
 
