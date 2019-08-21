@@ -12,7 +12,7 @@ module Lita
 
       http.post '/actions', :respond_with_action
 
-      route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
+      route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true, help: {'list approval groups' => 'listing'})
 
       def respond_with_approval_groups(response)
         robot.chat_service.send_attachment(response.message.source.room_object, formatted_approval_groups)
