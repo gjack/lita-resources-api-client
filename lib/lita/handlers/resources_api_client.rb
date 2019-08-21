@@ -7,8 +7,7 @@ module Lita
       config :auth_token, default: ENV['AUTH_TOKEN']
       config :auth_secret, default: ENV['AUTH_SECRET']
 
-      http.post '/actions', :respond_with_message, { :ssl => {
-        :ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'} }
+      http.post '/actions', :respond_with_action
 
       route(/list\s+approval\s+groups/i, :respond_with_approval_groups, command: true)
 
@@ -16,8 +15,8 @@ module Lita
         robot.chat_service.send_attachment(response.message.source.room_object, formatted_approval_groups)
       end
 
-      def respond_with_message(request, response)
-        Lita.logger.info "Hello"
+      def respond_with_action(request, response)
+        Lita.logger.info "#{request.inspect}"
       end
 
       def api
