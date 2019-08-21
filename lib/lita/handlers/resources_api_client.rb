@@ -1,4 +1,5 @@
 require 'pco_api'
+require 'uri'
 
 module Lita
   module Handlers
@@ -16,8 +17,8 @@ module Lita
       end
 
       def respond_with_action(request, response)
-        Lita.logger.info "#{request.body['payload']}"
-        Lita.logger.info "#{request.body.string.gsub(/payload=/, '')}"
+        payload = URI.decode(request.body.string.gsub(/payload=/, ''))
+        Lita.logger.info "#{MultiJson.load(payload)}"
       end
 
       def api
