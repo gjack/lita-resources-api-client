@@ -16,7 +16,8 @@ module Lita
       end
 
       def respond_with_action(request, response)
-        Lita.logger.info "#{request.inspect}"
+        Lita.logger.info "#{request.body.inspect}"
+        Lita.logger.info "#{response.body.inspect}"
       end
 
       def api
