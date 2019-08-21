@@ -16,7 +16,8 @@ module Lita
       end
 
       def respond_with_action(request, response)
-        Lita.logger.info "#{MultiJson.load(request.body.payload)}"
+        Lita.logger.info "#{request.body['payload']}"
+        Lita.logger.info "#{request.body.string.gsub(/payload=/, '')}"
       end
 
       def api
