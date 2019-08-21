@@ -59,7 +59,7 @@ class RequestAttributes
   end
 
   def action_value
-    action.type == 'select' ? selected_option.dig(:value) : action.dig(:value)
+    action_type == 'select' ? selected_option.dig(:value) : action.dig(:value)
   end
 
   def selected_option
