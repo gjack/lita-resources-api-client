@@ -22,7 +22,7 @@ module Lita
         payload = URI.decode(request.body.string.gsub(/payload=/, ''))
         json_payload = MultiJson.load(payload, :symbolize_keys => true)
         if verify_request(json_payload.dig(:token))
-          http.post json_payload(:response_url), {"text": "Your request has been received...", "response_type": "in_channel"}
+          http.post json_payload.dig(:response_url), {"text": "Your request has been received...", "response_type": "in_channel"}
         end
       end
 
