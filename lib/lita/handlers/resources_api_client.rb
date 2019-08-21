@@ -1,5 +1,6 @@
 require 'pco_api'
 require 'uri'
+require 'request_attributes'
 
 module Lita
   module Handlers
@@ -19,11 +20,15 @@ module Lita
       end
 
       def respond_with_action(request, response)
-        payload = URI.decode(request.body.string.gsub(/payload=/, ''))
-        json_payload = MultiJson.load(payload, :symbolize_keys => true)
-        if verify_request(json_payload.dig(:token))
-          http.post json_payload.dig(:response_url), MultiJson.dump({"text": "Your request has been received...", "response_type": "in_channel"})
+        payload = request_payload(request)
+        if verify_request(payload.token)
+          http.post payload.response_url, MultiJson.dump({"text": "Your request has been received...", "response_type": "in_channel"})
+          robot.trigger(payload.callback_id.to_sym, payload.attributes_hash)
         end
+      end
+
+      def request_payload(request)
+        RequestAttributes.new(request)
       end
 
       def api
