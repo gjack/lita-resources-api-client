@@ -7,6 +7,8 @@ module Lita
       attr_reader :api
       config :auth_token, default: ENV['AUTH_TOKEN']
       config :auth_secret, default: ENV['AUTH_SECRET']
+      # For slack interactive elements
+      config :slack_verification_secret, default: ENV['SLACK_VERIFICATION_SECRET']
 
       http.post '/actions', :respond_with_action
 
@@ -18,7 +20,10 @@ module Lita
 
       def respond_with_action(request, response)
         payload = URI.decode(request.body.string.gsub(/payload=/, ''))
-        Lita.logger.info "#{MultiJson.load(payload)}"
+        json_payload = MultiJson.load(payload, :symbolize_keys => true)
+        if verify_request(json_payload.dig(:token))
+          http.post json_payload(:response_url), {"text": "Your request has been received...", "response_type": "in_channel"}
+        end
       end
 
       def api
@@ -27,6 +32,10 @@ module Lita
 
       def fetch_approval_groups
         api.resources.v2.resource_approval_groups.get
+      end
+
+      def verify_request(token)
+        token == config.slack_verification_secret
       end
 
       def formatted_approval_groups
